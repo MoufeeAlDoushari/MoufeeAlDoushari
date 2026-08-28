@@ -19,18 +19,18 @@ OUT = "ascii_portrait.txt"
 OUT_LIGHT = "ascii_portrait_light.txt"
 
 # head-and-shoulders crop out of the full-body avatar (left, top, right, bottom)
-CROP = (226, 42, 340, 198)
-ROWS = 56
-CHAR_W, LINE_H = 4.02, 7.82     # must match the SVG's mono metrics
+CROP = (230, 44, 338, 200)
+ROWS = 52
+CHAR_W, LINE_H = 4.44, 8.63     # must match the SVG's mono metrics
 RAMP = " .:-=+*#%@"             # sparse -> dense, i.e. light -> dark
 
 # tone controls
-CONTRAST = 1.50
-BRIGHT = 0.88
+CONTRAST = 1.52
+BRIGHT = 0.80
 GAMMA = 0.92
 VIGNETTE = 0.97                 # fade the busy cafe background away
 # where the head sits in the crop: (cx, cy, rx, ry) in 0-1 units
-FOCUS = (0.48, 0.46, 0.42, 0.44)
+FOCUS = (0.48, 0.46, 0.40, 0.46)
 
 
 def main(crop=CROP, rows=ROWS, contrast=CONTRAST, vignette=VIGNETTE,
@@ -47,7 +47,7 @@ def main(crop=CROP, rows=ROWS, contrast=CONTRAST, vignette=VIGNETTE,
     g = ImageOps.autocontrast(g, cutoff=2)
     # local contrast first: this is what makes eyes, brows and the nose
     # shadow survive the downsample instead of averaging into one bright mass
-    g = g.filter(ImageFilter.UnsharpMask(radius=6, percent=170, threshold=2))
+    g = g.filter(ImageFilter.UnsharpMask(radius=6, percent=205, threshold=2))
     g = ImageEnhance.Contrast(g).enhance(contrast)
     g = ImageEnhance.Brightness(g).enhance(BRIGHT)
 
