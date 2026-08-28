@@ -7,6 +7,14 @@
 </p>
 
 <p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)"  srcset="heatmap-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="heatmap-light.svg">
+    <img alt="Contribution activity for the last year" src="heatmap-dark.svg" width="100%">
+  </picture>
+</p>
+
+<p align="center">
   <a href="https://sites.google.com/view/moufee-al-doushari/"><img alt="Portfolio" src="https://img.shields.io/badge/Portfolio-0EA5E9?style=flat-square&logo=googlechrome&logoColor=white"></a>
   <a href="https://www.linkedin.com/in/moufee-al-doushari"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white"></a>
   <a href="mailto:doushari.dipto212@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-EA4335?style=flat-square&logo=gmail&logoColor=white"></a>
@@ -17,20 +25,24 @@
   ---------------------------------------------------------------------
   How this profile is built
   ---------------------------------------------------------------------
-  The card above is one SVG per theme; GitHub picks between them with the
+  Two SVGs per graphic - one per theme. GitHub picks between them with the
   <picture> element and prefers-color-scheme.
 
       python portrait.py        avatar.png -> ascii_portrait*.txt
       python build_profile.py   -> dark.svg + light.svg
+      python heatmap.py         -> heatmap-dark.svg + heatmap-light.svg
 
-  Edit the CONFIG block at the top of build_profile.py to change any of
-  the SYSTEM.INFO rows, then re-run build_profile.py and commit.
+  Edit the CONFIG block at the top of build_profile.py to change any of the
+  SYSTEM.INFO rows, then re-run build_profile.py and commit.
 
-  Changed your profile picture? Delete avatar.png, re-run portrait.py
-  (it re-downloads), and adjust CROP / FOCUS in portrait.py if the new
-  photo frames your head differently.
+  The heatmap reads the public contribution calendar - no token needed. Run
+  heatmap.py again (or add .github/workflows/heatmap.yml) to refresh it.
 
-  Note: GitHub caches README images through camo, so an updated SVG can
-  take a few minutes to appear.
+  Changed your profile picture? Delete avatar.png, re-run portrait.py (it
+  re-downloads), and adjust CROP / FOCUS in portrait.py if the new photo
+  frames your head differently.
+
+  Note: GitHub caches README images through camo, so an updated SVG can take
+  a few minutes to appear.
   ---------------------------------------------------------------------
 -->
