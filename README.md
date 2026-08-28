@@ -1,16 +1,16 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)"  srcset="dark.svg?v=3">
-    <source media="(prefers-color-scheme: light)" srcset="light.svg?v=3">
-    <img alt="Moufee Al Doushari - CSE undergrad and full-stack engineer" src="dark.svg?v=3" width="100%">
+    <source media="(prefers-color-scheme: dark)"  srcset="dark.svg?v=5">
+    <source media="(prefers-color-scheme: light)" srcset="light.svg?v=5">
+    <img alt="Moufee Al Doushari - CSE undergrad and full-stack engineer" src="dark.svg?v=5" width="100%">
   </picture>
 </p>
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)"  srcset="heatmap-dark.svg?v=3">
-    <source media="(prefers-color-scheme: light)" srcset="heatmap-light.svg?v=3">
-    <img alt="Contribution activity" src="heatmap-dark.svg?v=3" width="100%">
+    <source media="(prefers-color-scheme: dark)"  srcset="heatmap-dark.svg?v=5">
+    <source media="(prefers-color-scheme: light)" srcset="heatmap-light.svg?v=5">
+    <img alt="Contribution activity" src="heatmap-dark.svg?v=5" width="100%">
   </picture>
 </p>
 
@@ -28,7 +28,7 @@
   Two SVGs per graphic - one per theme. GitHub picks between them with the
   <picture> element and prefers-color-scheme.
 
-      python portrait.py        avatar.png -> ascii_portrait*.txt
+      python portrait.py        portrait_src.jpg -> ascii_portrait*.txt
       python build_profile.py   -> dark.svg + light.svg
       python heatmap.py         -> heatmap-dark.svg + heatmap-light.svg
 
@@ -40,9 +40,11 @@
   The strip reads the public contribution calendar - no token needed. Run
   heatmap.py again (or add .github/workflows/heatmap.yml) to refresh it.
 
-  Changed your profile picture? Delete avatar.png, re-run portrait.py (it
-  re-downloads), and adjust CROP / FOCUS in portrait.py if the new photo
-  frames your head differently.
+  Changing the portrait: the source photo is not committed. Put the new one
+  beside portrait.py as portrait_src.jpg, then re-fit CROP and the HEAD /
+  SHOULDER_* numbers in that file to the new framing and run it. The two
+  ascii_portrait*.txt files it writes ARE committed, so build_profile.py
+  works without the photo or Pillow installed.
 
   GitHub caches README images through camo. After committing a new SVG,
   bump the ?v= number on that image above to make the change show up at
