@@ -1,16 +1,16 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)"  srcset="dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="light.svg">
-    <img alt="Moufee Al Doushari - CSE undergrad and full-stack engineer" src="dark.svg" width="100%">
+    <source media="(prefers-color-scheme: dark)"  srcset="dark.svg?v=2">
+    <source media="(prefers-color-scheme: light)" srcset="light.svg?v=2">
+    <img alt="Moufee Al Doushari - CSE undergrad and full-stack engineer" src="dark.svg?v=2" width="100%">
   </picture>
 </p>
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)"  srcset="heatmap-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="heatmap-light.svg">
-    <img alt="Contribution activity for the last year" src="heatmap-dark.svg" width="100%">
+    <source media="(prefers-color-scheme: dark)"  srcset="heatmap-dark.svg?v=2">
+    <source media="(prefers-color-scheme: light)" srcset="heatmap-light.svg?v=2">
+    <img alt="Contribution activity" src="heatmap-dark.svg?v=2" width="100%">
   </picture>
 </p>
 
@@ -35,14 +35,15 @@
   Edit the CONFIG block at the top of build_profile.py to change any of the
   SYSTEM.INFO rows, then re-run build_profile.py and commit.
 
-  The heatmap reads the public contribution calendar - no token needed. Run
+  The strip reads the public contribution calendar - no token needed. Run
   heatmap.py again (or add .github/workflows/heatmap.yml) to refresh it.
 
   Changed your profile picture? Delete avatar.png, re-run portrait.py (it
   re-downloads), and adjust CROP / FOCUS in portrait.py if the new photo
   frames your head differently.
 
-  Note: GitHub caches README images through camo, so an updated SVG can take
-  a few minutes to appear.
+  GitHub caches README images through camo. After committing a new SVG,
+  bump the ?v= number on that image below to make the change show up at
+  once instead of waiting for the cache to expire.
   ---------------------------------------------------------------------
 -->
