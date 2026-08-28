@@ -29,7 +29,7 @@ ROWS = [
     ("Subject",    "Moufee Al Doushari"),
     ("Role",       "CSE Undergrad · Full-Stack Engineer"),
     ("Origin",     "Dhaka, Bangladesh"),
-    ("Education",  "B.Sc. CSE, AUST · CGPA 3.04"),
+    ("Education",  "B.Sc. CSE, AUST · 2023-2027"),
     ("Status",     "Building • Learning • Shipping"),
     ("ToolChain",  "VS Code, Git, Docker, Postman"),
     ("Core Lang",  "C, C++, Java, C#, Python"),
@@ -48,7 +48,6 @@ CONTACT = [
 STATS = [
     ("Codeforces", "Pupil · ICPC Prelim 2024 Honourable Mention"),
     ("Contests",   "Intra AUST 5th (Spring 2025)"),
-    ("Projects",   "AponKhoj · Bachelor Solution · Blog Platform"),
 ]
 
 ART_FILE = {"dark": "ascii_portrait.txt", "light": "ascii_portrait_light.txt"}
@@ -62,12 +61,12 @@ CARD = (16, 16, 1148, 578, 18)
 LP = (36, 78, 452, 498, 12)          # VISUAL.MAP
 RP = (506, 78, 638, 498, 12)         # SYSTEM.INFO
 
-AFS, ACHW, ALH = 6.7, 4.02, 7.82     # ascii font-size / advance / line-height
+AFS, ACHW, ALH = 7.4, 4.44, 8.63     # ascii font-size / advance / line-height
 ATOT = 16.0                          # ascii reveal loop, seconds
 
-RFS, RCHW = 12.5, 7.5                # info rows
-ROW_Y0, ROW_STEP = 126.0, 20.5
-LBL_X, DOT_X, VAL_X = 526.0, 636.0, 762.0
+RFS, RCHW = 15.0, 9.0                # info rows
+ROW_Y0, ROW_STEP = 128.0, 22.0
+LBL_X, DOT_X, VAL_X = 526.0, 628.0, 745.0
 
 THEMES = {
     "dark": dict(
@@ -274,12 +273,12 @@ def build(theme, art):
         nonlocal n
         y = line_y()
         w('<g opacity="1">%s'
-          '<text x="%.1f" y="%.1f" font-family="%s" font-size="11" letter-spacing="1.4" '
+          '<text x="%.1f" y="%.1f" font-family="%s" font-size="15" letter-spacing="1.4" '
           'fill="%s">%s</text>'
           '<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="%s" stroke-opacity=".55"/>'
           '</g>\n'
           % (reveal(n), LBL_X, y, MONO, T["a3"], esc(title),
-             LBL_X + len(title) * 6.8 + 12, y - 4, RP[0] + RP[2] - 18, y - 4, T["dim"]))
+             LBL_X + len(title) * 9.0 + 12, y - 4, RP[0] + RP[2] - 18, y - 4, T["dim"]))
         n += 1
 
     def row(label, value):
@@ -300,11 +299,11 @@ def build(theme, art):
 
     # host line
     y = line_y()
-    w('<text x="%.1f" y="%.1f" font-family="%s" font-size="13.5" fill="%s">'
+    w('<text x="%.1f" y="%.1f" font-family="%s" font-size="17" fill="%s">'
       '<tspan fill="%s">%s</tspan></text>\n'
       % (LBL_X, y, MONO, T["text"], T["a2"], esc(HOST)))
     w('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="%s" stroke-opacity=".7"/>\n'
-      % (LBL_X + len(HOST) * 8.1 + 12, y - 4, RP[0] + RP[2] - 18, y - 4, T["dim"]))
+      % (LBL_X + len(HOST) * 10.2 + 12, y - 4, RP[0] + RP[2] - 18, y - 4, T["dim"]))
     n += 1
 
     for k, v in ROWS:
