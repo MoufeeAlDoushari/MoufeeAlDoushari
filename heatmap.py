@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
 """
-Builds the contribution heatmap strip that sits under the profile card:
+Builds the contribution strip that sits under the profile card:
 
     heatmap-dark.svg   -> shown when GitHub is in dark mode
     heatmap-light.svg  -> shown when GitHub is in light mode
 
-Reads the real contribution calendar from the public profile page, paints it
-with GitHub's own level palette, then animates it: a wave sweeps left to
-right lighting every active day bright green, and a jet flies the lane below
-the grid, firing at the busiest days and setting off blast rings.
+Geometry and styling follow the reference strip exactly: a 513x170 viewBox,
+a flat background with no card or border, 34 weeks of 11px cells on a 14px
+pitch, GitHub's light-green level palette (so empty days read near-white and
+active days read green), and no text anywhere.
+
+A jet flies the lane below the grid; every active day flashes bright green as
+it passes, going out and coming back, and the busiest days take a shot.
 
     python heatmap.py
 
-No API token needed - the calendar HTML is public. Re-run it (or let the
-daily workflow run it) to refresh the grid.
+No API token needed - the calendar HTML is public.
 """
 import io
 import os
@@ -23,38 +25,30 @@ import urllib.request
 USER = "MoufeeAlDoushari"
 URL = "https://github.com/users/%s/contributions" % USER
 
-W, H = 1180, 290
-CARD = (16, 16, 1148, 258, 18)
-CELL, PITCH = 15.0, 19.6
-GX, GY = 72.0, 92.0                 # grid origin
-COLS, DAYS = 53, 7
+W, H = 513, 170
+CELL, PITCH = 11, 14
+GX, GY = 20, 15                     # grid origin
+COLS, DAYS = 34, 7                  # the strip shows the most recent 34 weeks
 LOOP = 20.0                         # seconds for one jet round trip
-JET_Y = 250.0
-SHOTS = 10                          # how many cells the jet actually targets
+JET_Y = 140
+JET_X0, JET_X1 = 35, 478
+SHOTS = 8                           # how many days the jet actually targets
+
+# GitHub's light-green ramp, used on both themes - that is what gives the
+# near-white empty cell and the green activation.
+LEVELS = ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"]
+FLASH = "#39d353"
+RING = "#56d364"
 
 THEMES = {
-    "dark": dict(
-        bg="#050816", panel="#0B1120", border="#FFFFFF", border_op=".08",
-        text="#E5E7EB", muted="#64748B", label="#7DD3FC",
-        levels=["#1C2536", "#0E4429", "#006D32", "#26A641", "#39D353"],
-        flash="#7EE787", ring="#56D364", empty_ring="#1E293B",
-        jet="#58A6FF", jet2="#388BFD", jet3="#C9E6FF", flame="#F0883E",
-        dot="#8B949E",
-    ),
-    "light": dict(
-        bg="#FFFFFF", panel="#F8FAFC", border="#0F172A", border_op=".10",
-        text="#0F172A", muted="#475569", label="#0284C7",
-        levels=["#E4E8EE", "#9BE9A8", "#40C463", "#30A14E", "#216E39"],
-        flash="#39D353", ring="#16A34A", empty_ring="#E2E8F0",
-        jet="#1F6FEB", jet2="#3B82F6", jet3="#1E3A8A", flame="#EA580C",
-        dot="#94A3B8",
-    ),
+    "dark":  dict(bg="#0d1117", dot="#8b949e"),
+    "light": dict(bg="#ffffff", dot="#57606a"),
 }
 
-MONO = ("ui-monospace,SFMono-Regular,Menlo,Consolas,"
-        "'DejaVu Sans Mono',monospace")
-MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+# blinking specks, exactly where the reference puts them
+DOTS = [(8, 20, 1.2), (8, 60, 1.6), (8, 100, 2.0),
+        (505, 25, 1.2), (505, 70, 1.6), (505, 110, 2.0),
+        (30, 164, 1.2), (483, 164, 1.6)]
 
 
 # ------------------------------------------------------------------ data
@@ -64,7 +58,6 @@ def fetch_calendar():
     with urllib.request.urlopen(req, timeout=30) as r:
         html = r.read().decode("utf-8", "replace")
 
-    # the real per-day counts only live in the screen-reader tooltips
     counts = {}
     for tip in re.findall(r"<tool-tip[^>]*>[^<]*</tool-tip>", html):
         ref = re.search(r'for="(contribution-day-component-\d+-\d+)"', tip)
@@ -86,23 +79,17 @@ def fetch_calendar():
     return cells
 
 
-def esc(s):
-    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-
-
 def kt(t):
-    return round(max(0.0, min(1.0, t / LOOP)), 5)
+    return round(max(0.0, min(1.0, t)), 5)
 
 
 # ----------------------------------------------------------------- build
-def build(theme, cells, total):
+def build(theme, cells):
     T = THEMES[theme]
     o = io.StringIO()
     w = o.write
-    bd = 'stroke="%s" stroke-opacity="%s"' % (T["border"], T["border_op"])
 
-    maxcol = max(c[1] for c in cells)
-    col0 = maxcol - (COLS - 1)          # keep the most recent 53 weeks
+    col0 = max(c[1] for c in cells) - (COLS - 1)
 
     def cx(col):
         return GX + (col - col0) * PITCH
@@ -110,160 +97,112 @@ def build(theme, cells, total):
     def cy(row):
         return GY + row * PITCH
 
-    # When the sweep reaches a given column (jet flies out over the first half)
+    # fraction of the loop at which the jet passes a column on the way out;
+    # it passes again, in reverse, at 1 - that
     def col_time(col):
-        return 0.6 + ((col - col0) / float(COLS - 1)) * (LOOP * 0.5 - 1.2)
+        return 0.04 + ((col - col0) / float(COLS - 1)) * 0.44
 
     active = [c for c in cells if c[3] > 0 and c[1] >= col0]
-    # the jet only shoots at the busiest days, otherwise it is noise
     targets = sorted(active, key=lambda c: (-c[3], c[1]))[:SHOTS]
     targets.sort(key=lambda c: c[1])
 
-    w('<?xml version="1.0" encoding="UTF-8"?>\n')
-    w('<svg xmlns="http://www.w3.org/2000/svg" width="%d" height="%d" '
-      'viewBox="0 0 %d %d" fill="none" role="img" '
-      'aria-label="%s contributions in the last year">\n'
-      % (W, H, W, H, total))
+    w('<svg viewBox="0 0 %d %d" xmlns="http://www.w3.org/2000/svg">\n' % (W, H))
+    w('<defs><pattern id="q" patternUnits="userSpaceOnUse" x="%d" y="%d" '
+      'width="%d" height="%d"><rect width="%d" height="%d" rx="2" ry="2" '
+      'fill="%s"/></pattern></defs>\n'
+      % (GX, GY, PITCH, PITCH, CELL, CELL, LEVELS[0]))
+    w('<rect x="0" y="0" width="%d" height="%d" fill="%s"/>\n' % (W, H, T["bg"]))
 
-    w("<defs>\n")
-    w('<linearGradient id="hstreak" x1="0" y1="0" x2="1" y2="0">'
-      '<stop offset="0" stop-color="%s" stop-opacity="0"/>'
-      '<stop offset="1" stop-color="%s" stop-opacity=".55"/></linearGradient>\n'
-      % (T["jet"], T["jet"]))
-    w('<clipPath id="hcard"><rect x="%d" y="%d" width="%d" height="%d" rx="%d"/>'
-      '</clipPath>\n' % CARD)
-    # one square, re-used by every quiet day in the grid
-    w('<rect id="c" width="%.0f" height="%.0f" rx="3"/>\n' % (CELL, CELL))
-    w("</defs>\n")
+    for x, y, dur in DOTS:
+        w('<circle cx="%d" cy="%d" r="1.1" fill="%s">'
+          '<animate attributeName="opacity" values="0.2;1;0.2" dur="%ss" '
+          'repeatCount="indefinite"/></circle>\n' % (x, y, T["dot"], dur))
 
-    w('<rect width="%d" height="%d" fill="%s"/>\n' % (W, H, T["bg"]))
-    w('<g clip-path="url(#hcard)">\n')
-    w('<rect x="%d" y="%d" width="%d" height="%d" rx="%d" fill="%s"/>\n'
-      % (CARD[0], CARD[1], CARD[2], CARD[3], CARD[4], T["panel"]))
+    # ---- grid: the quiet days are a plain lattice, so one pattern covers them
+    w('<g id="grid">\n')
+    w('<rect x="%d" y="%d" width="%d" height="%d" fill="url(#q)"/>\n'
+      % (GX, GY, COLS * PITCH, DAYS * PITCH))
+    present = set((r, c) for r, c, _d, _l, _n in cells if c >= col0)
+    for col in range(col0, col0 + COLS):
+        for row in range(DAYS):
+            if (row, col) not in present:      # days that have not happened yet
+                w('<rect x="%d" y="%d" width="%d" height="%d" fill="%s"/>\n'
+                  % (cx(col), cy(row), CELL, CELL, T["bg"]))
 
-    # ---- header
-    w('<text x="%.0f" y="48" font-family="%s" font-size="11" letter-spacing="2" '
-      'fill="%s">CONTRIBUTION.GRID</text>\n' % (GX - 16, MONO, T["label"]))
-    w('<text x="1126" y="48" font-family="%s" font-size="13" text-anchor="end" '
-      'fill="%s">%s contributions in the last year</text>\n'
-      % (MONO, T["muted"], total))
-    w('<line x1="%.0f" y1="62" x2="1126" y2="62" stroke="%s" stroke-opacity="%s"/>\n'
-      % (GX - 16, T["border"], T["border_op"]))
-
-    # ---- month labels
-    seen = set()
-    for row, col, date, _lvl, _n in sorted(cells, key=lambda c: c[1]):
-        if row != 0 or col < col0:
-            continue
-        m = int(date[5:7])
-        if m in seen:
-            continue
-        seen.add(m)
-        w('<text x="%.1f" y="84" font-family="%s" font-size="10.5" fill="%s" '
-          'opacity=".8">%s</text>\n' % (cx(col), MONO, T["muted"], MONTHS[m - 1]))
-
-    # ---- day labels
-    for row, name in ((1, "Mon"), (3, "Wed"), (5, "Fri")):
-        w('<text x="%.1f" y="%.1f" font-family="%s" font-size="10.5" '
-          'text-anchor="end" fill="%s" opacity=".8">%s</text>\n'
-          % (GX - 10, cy(row) + 11, MONO, T["muted"], name))
-
-    # ---- the grid itself
-    # Quiet days are the overwhelming majority and never change, so they are
-    # emitted as <use> of one shared square, grouped by colour. Only the days
-    # that actually light up need a rect of their own.
-    quiet = {}
-    for row, col, date, lvl, _n in cells:
-        if col < col0 or lvl > 0:
-            continue
-        quiet.setdefault(lvl, []).append((cx(col), cy(row)))
-    for lvl, pts in sorted(quiet.items()):
-        w('<g fill="%s">' % T["levels"][lvl])
-        for x, y in pts:
-            w('<use href="#c" x="%.1f" y="%.1f"/>' % (x, y))
-        w('</g>\n')
-
-    for row, col, date, lvl, _n in cells:
+    for row, col, _date, lvl, _n in cells:
         if col < col0 or lvl == 0:
             continue
-        base = T["levels"][lvl]
-        # the activation wave: flash as the sweep passes this column
-        t0 = col_time(col)
-        w('<rect x="%.1f" y="%.1f" width="%.0f" height="%.0f" rx="3" fill="%s">'
+        base = LEVELS[lvl]
+        t = col_time(col)
+        w('<rect x="%d" y="%d" width="%d" height="%d" rx="2" ry="2" fill="%s">'
           '<animate attributeName="fill" dur="%ss" repeatCount="indefinite" '
-          'keyTimes="0;%s;%s;%s;1" values="%s;%s;%s;%s;%s" calcMode="linear"/>'
-          '</rect>\n'
+          'keyTimes="0;%s;%s;%s;%s;1" values="%s;%s;%s;%s;%s;%s"/></rect>\n'
           % (cx(col), cy(row), CELL, CELL, base, LOOP,
-             kt(t0), kt(t0 + 0.35), kt(t0 + 1.5), base, base,
-             T["flash"], base, base))
+             kt(t), kt(t + 0.006), kt(1 - t - 0.006), kt(1 - t),
+             base, base, FLASH, base, FLASH, base))
+    w('</g>\n')
 
-    # ---- bullets and blast rings for the targeted days
-    w('<g>\n')
+    # ---- bullets
+    w('<g id="bullets">\n')
     for row, col, _date, _lvl, _n in targets:
-        x, y = cx(col) + CELL / 2, cy(row) + CELL / 2
+        x, y = cx(col) + CELL / 2.0, cy(row) + CELL / 2.0
         hit = col_time(col)
-        fire = max(0.05, hit - 0.55)
-        w('<circle r="2.1" fill="%s" opacity="0">'
+        fire = max(0.004, hit - 0.022)
+        w('<circle r="1.5" fill="%s" opacity="0">'
           '<animate attributeName="opacity" dur="%ss" repeatCount="indefinite" '
           'keyTimes="0;%s;%s;%s;1" values="0;1;1;0;0"/>'
           '<animate attributeName="cx" dur="%ss" repeatCount="indefinite" '
           'keyTimes="0;%s;%s;1" values="%.1f;%.1f;%.1f;%.1f"/>'
           '<animate attributeName="cy" dur="%ss" repeatCount="indefinite" '
-          'keyTimes="0;%s;%s;1" values="%.1f;%.1f;%.1f;%.1f"/>'
-          '</circle>\n'
-          % (T["ring"], LOOP, kt(fire), kt(fire + 0.02), kt(hit),
+          'keyTimes="0;%s;%s;1" values="%d;%d;%.1f;%.1f"/></circle>\n'
+          % (RING, LOOP, kt(fire), kt(fire + 0.002), kt(hit),
              LOOP, kt(fire), kt(hit), x, x, x, x,
              LOOP, kt(fire), kt(hit), JET_Y, JET_Y, y, y))
-        # blast ring
+    w('</g>\n')
+
+    # ---- blast rings
+    w('<g id="blasts">\n')
+    for row, col, _date, _lvl, _n in targets:
+        x, y = cx(col) + CELL / 2.0, cy(row) + CELL / 2.0
+        hit = col_time(col)
         w('<circle cx="%.1f" cy="%.1f" r="0" fill="none" stroke="%s" '
           'stroke-width="1.6" opacity="0">'
           '<animate attributeName="r" dur="%ss" repeatCount="indefinite" '
-          'keyTimes="0;%s;%s;1" values="0;1;13;13"/>'
+          'keyTimes="0;%s;%s;1" values="0;1;9;9"/>'
           '<animate attributeName="opacity" dur="%ss" repeatCount="indefinite" '
-          'keyTimes="0;%s;%s;1" values="0;.9;0;0"/></circle>\n'
-          % (x, y, T["ring"], LOOP, kt(hit), kt(hit + 0.7),
-             LOOP, kt(hit), kt(hit + 0.7)))
+          'keyTimes="0;%s;%s;1" values="0;1;0;0"/></circle>\n'
+          % (x, y, RING, LOOP, kt(hit), kt(hit + 0.018),
+             LOOP, kt(hit), kt(hit + 0.018)))
     w('</g>\n')
-
-    # ---- ambient blinking dots
-    for i, (dx, dy, dur) in enumerate(((34, 40, 1.2), (34, 236, 1.7),
-                                       (1146, 44, 1.5), (1146, 232, 2.0))):
-        w('<circle cx="%d" cy="%d" r="1.4" fill="%s">'
-          '<animate attributeName="opacity" values=".2;1;.2" dur="%ss" '
-          'repeatCount="indefinite"/></circle>\n' % (dx, dy, T["dot"], dur))
 
     # ---- the jet
-    x0, x1 = GX - 24, GX + (COLS - 1) * PITCH + 24
-    w('<g><g>'
-      '<polygon points="0,-15 8,6 4,3 -4,3 -8,6" fill="%s" stroke="%s" stroke-width="1"/>'
-      '<polygon points="-8,6 -14,12 -4,7" fill="%s"/>'
-      '<polygon points="8,6 14,12 4,7" fill="%s"/>'
-      '<circle cx="0" cy="-5" r="2.2" fill="%s"/>'
-      '<polygon points="-3,7 3,7 0,15" fill="%s">'
-      '<animate attributeName="opacity" values=".5;1;.6;1" dur=".18s" '
-      'repeatCount="indefinite"/></polygon>'
-      '</g>'
-      '<animateTransform attributeName="transform" type="translate" dur="%ss" '
-      'repeatCount="indefinite" keyTimes="0;0.5;1" values="%.1f,%.1f;%.1f,%.1f;%.1f,%.1f"/>'
-      '</g>\n'
-      % (T["jet"], T["jet2"], T["jet2"], T["jet2"], T["jet3"], T["flame"],
-         LOOP, x0, JET_Y, x1, JET_Y, x0, JET_Y))
+    w('<g id="jet">\n  <g transform="translate(0,0)">\n'
+      '    <polygon points="0,-16 8,6 4,3 -4,3 -8,6" fill="#58a6ff" '
+      'stroke="#1f6feb" stroke-width="1"/>\n'
+      '    <polygon points="-8,6 -14,12 -4,7" fill="#388bfd"/>\n'
+      '    <polygon points="8,6 14,12 4,7" fill="#388bfd"/>\n'
+      '    <circle cx="0" cy="-6" r="2.2" fill="#c9e6ff"/>\n'
+      '    <polygon points="-3,7 3,7 0,15" fill="#f0883e">\n'
+      '      <animate attributeName="opacity" values="0.5;1;0.6;1" dur="0.18s" '
+      'repeatCount="indefinite"/>\n    </polygon>\n  </g>\n'
+      '  <animateTransform attributeName="transform" attributeType="XML" '
+      'type="translate"\n    dur="%ss" repeatCount="indefinite"\n'
+      '    keyTimes="0;0.5;1"\n'
+      '    values="%d,%d;%d,%d;%d,%d"/>\n</g>\n'
+      % (LOOP, JET_X0, JET_Y, JET_X1, JET_Y, JET_X0, JET_Y))
 
-    w('</g>\n')
-    w('<rect x="%d" y="%d" width="%d" height="%d" rx="%d" fill="none" %s/>\n'
-      % (CARD + (bd,)))
     w('</svg>\n')
     return o.getvalue()
 
 
 def main():
     cells = fetch_calendar()
-    total = sum(c[4] for c in cells)
-    print("parsed %d days, %d contributions" % (len(cells), total))
+    print("parsed %d days, %d contributions"
+          % (len(cells), sum(c[4] for c in cells)))
     for theme in ("dark", "light"):
         path = "heatmap-%s.svg" % theme
         with open(path, "w", encoding="utf-8") as f:
-            f.write(build(theme, cells, total))
+            f.write(build(theme, cells))
         print("wrote %s (%d bytes)" % (path, os.path.getsize(path)))
 
 
