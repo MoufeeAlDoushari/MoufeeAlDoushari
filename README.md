@@ -1,16 +1,36 @@
-## Hi there 👋
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)"  srcset="dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="light.svg">
+    <img alt="Moufee Al Doushari - CSE undergrad and full-stack engineer" src="dark.svg" width="100%">
+  </picture>
+</p>
+
+<p align="center">
+  <a href="https://sites.google.com/view/moufee-al-doushari/"><img alt="Portfolio" src="https://img.shields.io/badge/Portfolio-0EA5E9?style=flat-square&logo=googlechrome&logoColor=white"></a>
+  <a href="https://www.linkedin.com/in/moufee-al-doushari"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white"></a>
+  <a href="mailto:doushari.dipto212@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-EA4335?style=flat-square&logo=gmail&logoColor=white"></a>
+  <a href="https://github.com/MoufeeAlDoushari?tab=repositories"><img alt="Repositories" src="https://img.shields.io/badge/Repositories-181717?style=flat-square&logo=github&logoColor=white"></a>
+</p>
 
 <!--
-**MoufeeAlDoushari/MoufeeAlDoushari** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+  ---------------------------------------------------------------------
+  How this profile is built
+  ---------------------------------------------------------------------
+  The card above is one SVG per theme; GitHub picks between them with the
+  <picture> element and prefers-color-scheme.
 
-Here are some ideas to get you started:
+      python portrait.py        avatar.png -> ascii_portrait*.txt
+      python build_profile.py   -> dark.svg + light.svg
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
+  Edit the CONFIG block at the top of build_profile.py to change any of
+  the SYSTEM.INFO rows, then re-run build_profile.py and commit.
+
+  Changed your profile picture? Delete avatar.png, re-run portrait.py
+  (it re-downloads), and adjust CROP / FOCUS in portrait.py if the new
+  photo frames your head differently.
+
+  Note: GitHub caches README images through camo, so an updated SVG can
+  take a few minutes to appear.
+  ---------------------------------------------------------------------
 -->
