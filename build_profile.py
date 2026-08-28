@@ -64,9 +64,11 @@ RP = (506, 78, 638, 498, 12)         # SYSTEM.INFO
 AFS, ACHW, ALH = 7.4, 4.44, 8.63     # ascii font-size / advance / line-height
 ATOT = 16.0                          # ascii reveal loop, seconds
 
-RFS, RCHW = 15.0, 9.0                # info rows
+# Info rows. RCHW is the worst-case mono advance (0.6 em) - VAL_X is placed
+# so the longest value still clears the panel's inner right edge at 1126.
+RFS, RCHW = 16.0, 9.6
 ROW_Y0, ROW_STEP = 128.0, 22.0
-LBL_X, DOT_X, VAL_X = 526.0, 628.0, 745.0
+LBL_X, DOT_X, VAL_X = 526.0, 630.0, 705.0
 
 THEMES = {
     "dark": dict(
@@ -273,12 +275,12 @@ def build(theme, art):
         nonlocal n
         y = line_y()
         w('<g opacity="1">%s'
-          '<text x="%.1f" y="%.1f" font-family="%s" font-size="15" letter-spacing="1.4" '
+          '<text x="%.1f" y="%.1f" font-family="%s" font-size="16" letter-spacing="1.4" '
           'fill="%s">%s</text>'
           '<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="%s" stroke-opacity=".55"/>'
           '</g>\n'
           % (reveal(n), LBL_X, y, MONO, T["a3"], esc(title),
-             LBL_X + len(title) * 9.0 + 12, y - 4, RP[0] + RP[2] - 18, y - 4, T["dim"]))
+             LBL_X + len(title) * 9.6 + 12, y - 4, RP[0] + RP[2] - 18, y - 4, T["dim"]))
         n += 1
 
     def row(label, value):
@@ -299,11 +301,11 @@ def build(theme, art):
 
     # host line
     y = line_y()
-    w('<text x="%.1f" y="%.1f" font-family="%s" font-size="17" fill="%s">'
+    w('<text x="%.1f" y="%.1f" font-family="%s" font-size="18" fill="%s">'
       '<tspan fill="%s">%s</tspan></text>\n'
       % (LBL_X, y, MONO, T["text"], T["a2"], esc(HOST)))
     w('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="%s" stroke-opacity=".7"/>\n'
-      % (LBL_X + len(HOST) * 10.2 + 12, y - 4, RP[0] + RP[2] - 18, y - 4, T["dim"]))
+      % (LBL_X + len(HOST) * 10.8 + 12, y - 4, RP[0] + RP[2] - 18, y - 4, T["dim"]))
     n += 1
 
     for k, v in ROWS:
