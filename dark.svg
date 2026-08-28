@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1180" height="610" viewBox="0 0 1180 610" fill="none" role="img" aria-label="Moufee Al Doushari - developer profile card">
 <defs>
-<linearGradient id="art" gradientUnits="userSpaceOnUse" x1="106.6" y1="96.6" x2="417.4" y2="574.0"><stop offset="0" stop-color="#22D3EE"><animate attributeName="stop-color" values="#22D3EE;#38BDF8;#7C3AED;#22D3EE" dur="9s" repeatCount="indefinite"/></stop><stop offset="1" stop-color="#7C3AED"><animate attributeName="stop-color" values="#7C3AED;#22D3EE;#38BDF8;#7C3AED" dur="9s" repeatCount="indefinite"/></stop></linearGradient>
+<linearGradient id="art" gradientUnits="userSpaceOnUse" x1="97.7" y1="139.8" x2="426.3" y2="530.9"><stop offset="0" stop-color="#22D3EE"><animate attributeName="stop-color" values="#22D3EE;#38BDF8;#7C3AED;#22D3EE" dur="9s" repeatCount="indefinite"/></stop><stop offset="1" stop-color="#7C3AED"><animate attributeName="stop-color" values="#7C3AED;#22D3EE;#38BDF8;#7C3AED" dur="9s" repeatCount="indefinite"/></stop></linearGradient>
 <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7C3AED"/><stop offset=".5" stop-color="#22D3EE"/><stop offset="1" stop-color="#10B981"/></linearGradient>
 <linearGradient id="shim" gradientUnits="userSpaceOnUse" x1="-620" y1="0" x2="0" y2="580"><stop offset="0" stop-color="#22D3EE" stop-opacity="0"/><stop offset=".45" stop-color="#22D3EE" stop-opacity=".85"/><stop offset=".55" stop-color="#7C3AED" stop-opacity=".85"/><stop offset="1" stop-color="#7C3AED" stop-opacity="0"/><animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="2400 0" dur="8s" repeatCount="indefinite"/></linearGradient>
 <linearGradient id="scan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22D3EE" stop-opacity="0"/><stop offset=".5" stop-color="#22D3EE" stop-opacity="1"/><stop offset="1" stop-color="#22D3EE" stop-opacity="0"/></linearGradient>
@@ -12,7 +12,7 @@
 <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#FFFFFF" stroke-width=".5"/></pattern>
 <clipPath id="cCard"><rect x="16" y="16" width="1148" height="578" rx="18"/></clipPath>
 <clipPath id="cL"><rect x="36" y="78" width="452" height="498" rx="12"/></clipPath>
-<mask id="rv" maskUnits="userSpaceOnUse" x="36" y="105.2" width="452" height="465.4"><rect x="36" y="105.2" width="452" height="465.4" fill="#fff"><animate attributeName="height" values="0;0;465.4;465.4;0;0" keyTimes="0;0.025;0.2875;0.85;0.93125;1" dur="16.0s" repeatCount="indefinite"/></rect></mask>
+<mask id="rv" maskUnits="userSpaceOnUse" x="36" y="148.4" width="452" height="379.1"><rect x="36" y="148.4" width="452" height="379.1" fill="#fff"><animate attributeName="height" values="0;0;379.1;379.1;0;0" keyTimes="0;0.025;0.2875;0.85;0.93125;1" dur="16.0s" repeatCount="indefinite"/></rect></mask>
 </defs>
 <rect width="1180" height="610" fill="#050816"/>
 <g clip-path="url(#cCard)">
@@ -28,58 +28,48 @@
 <g><circle cx="396" cy="96" r="3.2" fill="#10B981"><animate attributeName="opacity" values="1;.2;1" dur="1.5s" repeatCount="indefinite"/></circle><text x="470" y="100" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="10" letter-spacing="1.6" text-anchor="end" fill="#64748B">SCANNING</text></g>
 <g clip-path="url(#cL)">
 <g filter="url(#glow)" opacity=".95" mask="url(#rv)" xml:space="preserve" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="7.4" fill="url(#art)" lengthAdjust="spacingAndGlyphs">
-<text x="106.6" y="116.6" textLength="253.1">                                                     ....</text>
-<text x="106.6" y="125.2" textLength="257.5">                                               .....::....</text>
-<text x="106.6" y="133.9" textLength="262.0">                                       ..::-==+++==--:::...</text>
-<text x="106.6" y="142.5" textLength="266.4">                               .:-=++**####**+=+=:. .--::...</text>
-<text x="106.6" y="151.1" textLength="270.8">                       .:-==+*#%%%%##***=:....-++=---=--::...</text>
-<text x="106.6" y="159.8" textLength="275.3">               ...:=+**##%%##*++=---:=+*+++**###***++==-:::...</text>
-<text x="106.6" y="168.4" textLength="279.7">        .:::-==+**#######*-.. .-+**##%%#%%%######***++=---::...</text>
-<text x="106.6" y="177.0" textLength="284.2">    ...::--=++++***#####%#+:.-++*+*####%%%%%%%####***++==--::...</text>
-<text x="106.6" y="185.7" textLength="288.6">    .... .-=+++**#####%%#=:  ...   ...:-=--==*#%####**++==--::...</text>
-<text x="106.6" y="194.3" textLength="288.6">       ..-=++**#####%%*-                      :=#%###**++==-:::..</text>
-<text x="106.6" y="202.9" textLength="293.0">  ...::-==++****##%#+-                          .+*###**++==-::...</text>
-<text x="106.6" y="211.6" textLength="297.5"> ...:::-=++***####*: .                             :+##**++==-::...</text>
-<text x="106.6" y="220.2" textLength="297.5"> ..:::-==+***#**++- .:                               =#***++=--:...</text>
-<text x="106.6" y="228.8" textLength="301.9"> ..::-==++**###+:..          .:-=++++--.              +##*++==-::...</text>
-<text x="106.6" y="237.4" textLength="301.9"> ...::-=++*####.          :=+#%%%%%%%%%#*+=:           -*#*++=--:...</text>
-<text x="106.6" y="246.1" textLength="301.9"> ..:::-=+**###:         :*%%%###########%%%#*.          .=**+==-::..</text>
-<text x="106.6" y="254.7" textLength="306.4">..:::--=+*##%+         -#%##################%#.          :**++=--:...</text>
-<text x="106.6" y="263.3" textLength="306.4">..:::-=+**####.      .+%%###%%%%%############%#.         .**++==-:...</text>
-<text x="106.6" y="272.0" textLength="306.4">..::-=+**###%*      .#%#=-::::-=*#######%%%###%+.         =#*+==-::..</text>
-<text x="106.6" y="280.6" textLength="306.4">.::-=++**####%+     *%#***##+-  .-####%#***#%%%%#-        +#*++=-::..</text>
-<text x="106.6" y="289.2" textLength="310.8">.::-===**#####%=   -%####+++*+--+*###%*:    .-*#%#       +#**++=-::...</text>
-<text x="106.6" y="297.9" textLength="310.8">.::---=+*#####%+   +%###+-:  .:--+####- :-++++-+%#      =%##*++=--::..</text>
-<text x="106.6" y="306.5" textLength="310.8">.::---=+**##%%%=  -%#######*=++++*###*-.---+#*#*#*     =%###**+=--::..</text>
-<text x="106.6" y="315.1" textLength="310.8">::::--========#*::#########%##########+==...::*%%-    =%####**+---::..</text>
-<text x="106.6" y="323.7" textLength="310.8">..          -*#%**#######################**######:  :+%#####*+=---::..</text>
-<text x="106.6" y="332.4" textLength="310.8">   ..::-==+#%%#- =%##############%%%%%###%#####%+ -*#%######*+=---::..</text>
-<text x="106.6" y="341.0" textLength="310.8">.:--=+*##%%%##== -%#######%#%#=:-+=--*#########%-:%%#######**+=-:-::..</text>
-<text x="106.6" y="349.6" textLength="310.8">.:--======--###+ =%####%%##**+..--.::+##########-*#*#######**+=-:-::..</text>
-<text x="106.6" y="358.3" textLength="310.8"> ...        -##=:*#####*=: .--==*+-:-*%#########**: =%#####*++=---:...</text>
-<text x="106.6" y="366.9" textLength="310.8">               .+######*+=-:-===-=-:.:=######%+.+#..#######*++=-:-:...</text>
-<text x="106.6" y="375.5" textLength="306.4">               .=*##%%##%%%%%%##**+=-  .*####*: -=+#%#####**+==-:::..</text>
-<text x="106.6" y="384.2" textLength="306.4">       .        :=*#*=:-*#####-.:+%%##+=####*+:-+#%#######**+=--:::..</text>
-<text x="106.6" y="392.8" textLength="306.4"> ....      ...  =+:.   .=#%###*++*##%#*####*=+##%########***+=--::...</text>
-<text x="106.6" y="401.4" textLength="301.9"> ...:    ..-==.:#%=     :-+*##%%%%%*-..=**+- +%##########**++=--:...</text>
-<text x="106.6" y="410.0" textLength="301.9">  ...   ...:== :##%*-.     ..:-+==-.    :=+= +%#########**++=--::...</text>
-<text x="106.6" y="418.7" textLength="297.5">        .. .=: =%##%%#=:.              .-*%* +%######****++==-:::..</text>
-<text x="106.6" y="427.3" textLength="297.5">         ..:=: -%#####%%#=.         .-+#%#%+.+%#####****+++==-::...</text>
-<text x="106.6" y="435.9" textLength="293.0">         ..-=- *#########%*=-:::--=+#%%###%= +%######****++==-::..</text>
-<text x="106.6" y="444.6" textLength="293.0">           :=:=###########%%%%%%%%%%%*+###%- +%#######**++==-::...</text>
-<text x="106.6" y="453.2" textLength="288.6">             :*######################-=###%: +%#####***+++=--::..</text>
-<text x="106.6" y="461.8" textLength="288.6">   .....    .+***########*+**######## +%###+=######+**++-.::::...</text>
-<text x="106.6" y="470.5" textLength="284.2">    ...     .=****#########*#######%# -%###%%#####*+*++=.    ...</text>
-<text x="106.6" y="479.1" textLength="279.7">             .=++***##############%#=  +%########*=+++-.     ..</text>
-<text x="106.6" y="487.7" textLength="275.3">               -++***###***#######=.   :#####*#**=.=+:    ....</text>
-<text x="106.6" y="496.3" textLength="270.8">               :++++****#########=      =%###***++.--........</text>
-<text x="106.6" y="505.0" textLength="266.4">                :=++++*****#**###+.      -++***+++-:..:::...</text>
-<text x="106.6" y="513.6" textLength="262.0">                 .-=+++++******+=:    :..    .:::----:.....</text>
-<text x="106.6" y="522.2" textLength="257.5">                   .:-=+++++*=.       :==-::.    .  ......</text>
-<text x="106.6" y="530.9" textLength="226.4">                      :=====+-         .----:.  ...</text>
-<text x="106.6" y="539.5" textLength="217.6">                       .-===-:          .:--:....</text>
-<text x="106.6" y="548.1" textLength="213.1">                        .::.             .......</text>
-<text x="106.6" y="556.8" textLength="208.7">                                   ...  ...   .</text>
+<text x="97.7" y="159.8" textLength="217.6">                                     .--++**++=:.</text>
+<text x="97.7" y="168.4" textLength="235.3">                                 .:=++**%%@@%%%%@%*-.</text>
+<text x="97.7" y="177.0" textLength="244.2">                                     ..   ......-*+*#*:</text>
+<text x="97.7" y="185.7" textLength="253.1">                                    .  ..            .=+:</text>
+<text x="97.7" y="194.3" textLength="262.0">                                         ..            .:-.</text>
+<text x="97.7" y="202.9" textLength="266.4">                                     .   ..               ..</text>
+<text x="97.7" y="211.5" textLength="270.8">                                         ..              . ..</text>
+<text x="97.7" y="220.2" textLength="204.2">                                .           ..</text>
+<text x="97.7" y="228.8" textLength="159.8">                         .  .=*#%*#-</text>
+<text x="97.7" y="237.4" textLength="279.7">                       -:  :@@@@@@@@*+=:::                    .</text>
+<text x="97.7" y="246.1" textLength="279.7">                       +#-:#@%@@@@@@@@@@@%=.:: ..            .-</text>
+<text x="97.7" y="254.7" textLength="279.7">                      .*%@@%%@@@@@@%@@@@@@%*-:::.   .        #+</text>
+<text x="97.7" y="263.3" textLength="284.2">                      :%*.+@@%*::-==-+#@@@@@%--.....  .     .@*.</text>
+<text x="97.7" y="272.0" textLength="284.2">                      :%*::-@%*=-=*****#@@@@@%-:..:. . .    -@*.</text>
+<text x="97.7" y="280.6" textLength="284.2">                      :#**=+%@@%=.##+*@@@@@@@@+:. .         #@*.</text>
+<text x="97.7" y="289.2" textLength="279.7">                      .**#+%@@@@%##@@@@@@@@@@@#.:=++--==.  =@@+</text>
+<text x="97.7" y="297.9" textLength="279.7">                       =*#@@@@@@@@@@@@@@@@@@@@%-*@@@+%@%#..@@%-</text>
+<text x="97.7" y="306.5" textLength="279.7">                       :=%@@@@@@@@@@@@@@@@@@@@%+%@#+**@@%.#@@*.</text>
+<text x="97.7" y="315.1" textLength="275.3">                        -%@#%%%*@@@@@@@@@@@@@@*+@%*#@*%%.=@@%:</text>
+<text x="97.7" y="323.7" textLength="270.8">                         +=-=+*%@@@@@@@@@@@%#%+*%#*%##+ .@@%=</text>
+<text x="97.7" y="332.4" textLength="266.4">                          .+--+*+#@@@@@%@@##**+#+##*+= :%@%=</text>
+<text x="97.7" y="341.0" textLength="262.0">                           -**+=-:+@@@%%%%##****=+**+ :@@%-</text>
+<text x="97.7" y="349.6" textLength="257.5">                            :#@@@@=%@%#%@%#++++-*%#*-.@@*:</text>
+<text x="97.7" y="358.3" textLength="257.5">                          .:.-+#*=--+*#+**+=---*%##+:*#-:.</text>
+<text x="97.7" y="366.9" textLength="262.0">                         ..--**+:... ::..:-:-=*%%##==#*+-:.</text>
+<text x="97.7" y="375.5" textLength="270.8">                       ..:  .-:.:.      .:=+*#%%%##=+%%#+=-..</text>
+<text x="97.7" y="384.1" textLength="275.3">                      .::=*:.:::-....:-=*####%@@%#*+=@@%#*=-:.</text>
+<text x="97.7" y="392.8" textLength="279.7">                     .:-=+#%#%%@%++==+*#%@%@@@@@#**#=%%@%#*+-:.</text>
+<text x="97.7" y="401.4" textLength="284.2">                   ..:=+=#%**@%++**%**#@@@@@@@@%#*#%=@+:%%%*+=:.</text>
+<text x="97.7" y="410.0" textLength="293.0">                  .:-=+**%%##*: *@+#@%##%%%@@@@%***=*@*  =%%#+=-:.</text>
+<text x="97.7" y="418.7" textLength="297.5">                 .:=-+#%=*+=:   *@@++@%%%%@@@@%#*==#@@:   .--==--:.</text>
+<text x="97.7" y="427.3" textLength="239.8">               ..:====-:        =@@@*+###%%%%@%=-*@@@#</text>
+<text x="97.7" y="435.9" textLength="239.8">               ...            ..:@@@@%#****%%%==%@@@@:</text>
+<text x="97.7" y="444.6" textLength="235.3">                        .........%@@@@@%%#####%@@@@@%</text>
+<text x="97.7" y="453.2" textLength="235.3">                         .... .. #@@@@+*#***++*%@@@@=</text>
+<text x="97.7" y="461.8" textLength="235.3">                          .... . *@@%:-========--#@@:</text>
+<text x="97.7" y="470.4" textLength="301.9">                ...     . ..   . *@%@#--======-.-#%%              ..</text>
+<text x="97.7" y="479.1" textLength="315.2">            .........          . +@@@@@=-====::*@@@-              .....</text>
+<text x="97.7" y="487.7" textLength="319.7">          ............  .      . =@@@@@@=-==-=@@@@+ .        .    ......</text>
+<text x="97.7" y="496.3" textLength="319.7">          ............  .     ....%@@@@@#-+-:@@@@# ..       .      .....</text>
+<text x="97.7" y="505.0" textLength="328.6">           ...........  .    .... :@@@@@==+=:%@@#  ..       .     ........</text>
+<text x="97.7" y="513.6" textLength="315.2">           ...........  .  ....... :%@@#-==+:=@%. ...    . .      .....</text>
 </g>
 <rect x="36" y="78" width="452" height="70" fill="url(#scan)" opacity=".10"><animateTransform attributeName="transform" type="translate" values="0 -120;0 540" dur="5s" repeatCount="indefinite"/></rect>
 </g>
