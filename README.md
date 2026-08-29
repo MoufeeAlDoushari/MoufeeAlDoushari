@@ -1,8 +1,8 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)"  srcset="dark.svg?v=5">
-    <source media="(prefers-color-scheme: light)" srcset="light.svg?v=5">
-    <img alt="Moufee Al Doushari - CSE undergrad and full-stack engineer" src="dark.svg?v=5" width="100%">
+    <source media="(prefers-color-scheme: dark)"  srcset="dark.svg?v=6">
+    <source media="(prefers-color-scheme: light)" srcset="light.svg?v=6">
+    <img alt="Moufee Al Doushari - CSE undergrad and full-stack engineer" src="dark.svg?v=6" width="100%">
   </picture>
 </p>
 
