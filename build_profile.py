@@ -61,7 +61,7 @@ CARD = (16, 16, 1148, 578, 18)
 LP = (36, 78, 452, 498, 12)          # VISUAL.MAP
 RP = (506, 78, 638, 498, 12)         # SYSTEM.INFO
 
-AFS, ACHW, ALH = 7.4, 4.44, 8.63     # ascii font-size / advance / line-height
+AFS, ACHW, ALH = 7.4, 4.44, 7.55     # ascii font-size / advance / line-height
 ATOT = 16.0                          # ascii reveal loop, seconds
 
 # Info rows. RCHW is the worst-case mono advance (0.6 em) - VAL_X is placed
